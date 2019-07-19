@@ -4,3 +4,15 @@ Simple metronome:
 - start or stop with a button
 - frequency can be changed anytime
 
+v 2.0
+Programmable metronome:
+- two sliders:
+	- set starting frequency
+	- set frequency of changes
+- frequency and frequency of changes
+  can be adjusted manually
+- frequency is incremented automatically
+  based on preset frequency of changes
+- use redio buttons to toggle between
+  simple (constant) mode and
+  programmable (linearly progressive) mode
