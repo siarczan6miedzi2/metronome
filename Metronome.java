@@ -18,9 +18,9 @@ public class Metronome implements ActionListener
 	static JButton bStart;
 	static JButton bStop;
 
-	static JRadioButton modeC;
-	static JRadioButton modeL;
-//	static JRadioButton modeG;
+	static JRadioButton mode1;
+	static JRadioButton mode2;
+//	static JRadioButton mode3;
 
 	static JSlider sBpm;
 	static JTextField displayBpm;
@@ -34,7 +34,7 @@ public class Metronome implements ActionListener
 	Metronome()
 	{
 		JFrame f = new JFrame("Metronome"); // creating a frame
-		f.setSize(WIDTH*20/19, HEIGHT); // 1800 width and 1000 height
+		f.setSize(WIDTH, HEIGHT); // 1600 width and 900 height
 		f.setLayout(null); // using no layout managers
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -54,17 +54,17 @@ public class Metronome implements ActionListener
 		pnl.add(bStop);
 
 		ButtonGroup modes = new ButtonGroup();
-		modeC = new JRadioButton("Constant", true);
-		modeL = new JRadioButton("Linearly progressive");
-//		modeG = new JRadioButton("Linearly nonlinearly progressive");
-		modeC.setBounds(WIDTH*1/15, HEIGHT*12/30, WIDTH*2/10, HEIGHT*1/30);
-		modeL.setBounds(WIDTH*1/15, HEIGHT*13/30, WIDTH*2/10, HEIGHT*1/30);
-//		modeG.setBounds(WIDTH*1/15, HEIGHT*14/30, WIDTH*2/10, HEIGHT*1/30);
-		modeC.addActionListener(this);
-		modeL.addActionListener(this);
-//		modeG.addActionListener(this);
-		modes.add(modeC); modes.add(modeL); //modes.add(modeG);
-		pnl.add(modeC); pnl.add(modeL); //pnl.add(modeG);
+		mode1 = new JRadioButton("Manual", true);
+		mode2 = new JRadioButton("Semi-automatic");
+//		mode3 = new JRadioButton("Automatic");
+		mode1.setBounds(WIDTH*1/15, HEIGHT*12/30, WIDTH*2/10, HEIGHT*1/30);
+		mode2.setBounds(WIDTH*1/15, HEIGHT*13/30, WIDTH*2/10, HEIGHT*1/30);
+//		mode3.setBounds(WIDTH*1/15, HEIGHT*14/30, WIDTH*2/10, HEIGHT*1/30);
+		mode1.addActionListener(this);
+		mode2.addActionListener(this);
+//		mode3.addActionListener(this);
+		modes.add(mode1); modes.add(mode2); //modes.add(mode3);
+		pnl.add(mode1); pnl.add(mode2); //pnl.add(mode3);
 
 		int valBpm = 120;
 		sBpm = new JSlider(JSlider.HORIZONTAL, 30, 300, valBpm); // 30-300 bpm, initial: 120 bpm
@@ -83,10 +83,10 @@ public class Metronome implements ActionListener
 		pnl.add(displayBpm);
 
 		int valBpbpm = 10;
-		sBpbpm = new JSlider(JSlider.HORIZONTAL, 2, 50, valBpbpm); // 1-50 bpbpm, initial: 10 bpbpm
-		sBpbpm.setBounds(WIDTH*1/20, HEIGHT*6/10, WIDTH*4/10, HEIGHT*1/20);
-		sBpbpm.setMinorTickSpacing(1);
-		sBpbpm.setMajorTickSpacing(2);
+		sBpbpm = new JSlider(JSlider.HORIZONTAL, 1, 50, valBpbpm); // 1-50 bpbpm, initial: 10 bpbpm
+		sBpbpm.setBounds(WIDTH*1/20, HEIGHT*6/10, WIDTH*9/10, HEIGHT*1/20);
+//		sBpbpm.setMinorTickSpacing(1);
+		sBpbpm.setMajorTickSpacing(1);
 		sBpbpm.setPaintTicks(true);
 		sBpbpm.setPaintLabels(true);
 		sBpbpm.setEnabled(false);
@@ -106,12 +106,12 @@ public class Metronome implements ActionListener
 	{
 		if (e.getSource() == bStart) workingFlag = true;
 		else if (e.getSource() == bStop) workingFlag = false;
-		else if (e.getSource() == modeC)
+		else if (e.getSource() == mode1)
 		{
 			workingFlag = false;
 			sBpbpm.setEnabled(false);
 		}
-		else if (e.getSource() == modeL)
+		else if (e.getSource() == mode2)
 		{
 			workingFlag = false;
 			displayBpbpm.setText("" + valBpbpm + " BPBPM"); // initialization
@@ -153,7 +153,7 @@ public class Metronome implements ActionListener
 
 				if (workingFlag)
 				{
-					if (modeC.isSelected())
+					if (mode1.isSelected())
 					{
 						displayBpbpm.setText("");
 						while (workingFlag)
@@ -164,7 +164,7 @@ public class Metronome implements ActionListener
 							beep(valBpm, start, s, clip);
 						}
 					}
-					if (modeL.isSelected())
+					if (mode2.isSelected())
 					{
 						while (workingFlag)
 						{
